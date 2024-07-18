@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   // Other Next.js configuration options
   trailingSlash: true,
   images: {
