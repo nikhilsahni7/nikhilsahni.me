@@ -15,9 +15,9 @@ const fontSans = FontSans({
 });
 
 export const metadata = {
-  title: "Portfolio Website",
+  title: "Personal Website",
   description:
-    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer",
+    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer and my journey as a software engineer.",
 };
 
 export default function RootLayout({
