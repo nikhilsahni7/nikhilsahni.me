@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Space_Mono, Roboto as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/Theme-Provider";
 
 const fontMono = Space_Mono({
   subsets: ["latin"],
@@ -17,25 +18,25 @@ const fontSans = FontSans({
 export const metadata = {
   title: "Personal Website",
   description:
-    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer and my journey as a software engineer.",
+    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer and my journey as a software engineer",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontMono.variable
-        )}
-      >
-        {children}
+      <body className={`${(fontSans.variable, fontMono.variable)} font-sans`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
