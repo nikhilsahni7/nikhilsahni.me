@@ -11,6 +11,7 @@ const page = () => {
       <p className="text-lg mt-4">Get started</p>
 
       <Button>Click me</Button>
+      <Button variant={"destructive"}>test</Button>
     </div>
   );
 };
