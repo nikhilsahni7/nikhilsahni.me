@@ -9,9 +9,6 @@ const page = () => {
     >
       <h1 className="text-4xl font-bold code-font">Welcome to my website </h1>
       <p className="text-lg mt-4">Get started</p>
-
-      <Button>Click me</Button>
-      <Button variant={"destructive"}>test</Button>
     </div>
   );
 };
