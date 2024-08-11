@@ -81,6 +81,35 @@ const projects = [
     ],
   },
   {
+    title: "Nexus-Chat",
+    description:
+      "Nexus Chat is a real-time chat application designed to connect, collaborate, and communicate seamlessly. This project leverages modern web technologies to provide a robust and user-friendly experience.",
+    liveLink: "https://github.com/nikhilsahni7/Nexus-Chat",
+    githubLink: "https://github.com/nikhilsahni7/Nexus-Chat",
+    backendLink: "https://github.com/nikhilsahni7/Nexus-Chat-Backend",
+    tags: [
+      "Next.js",
+      "Express Js",
+      "PostgreSQL",
+      "TypeScript",
+      "Tailwind CSS",
+      "Socket.io",
+      "Shadcn UI",
+      "React Query",
+      "Zustand",
+      "Prisma",
+    ],
+  },
+
+  {
+    title: "Build it",
+    description:
+      " A full stack website for construction companies to showcase their projects and services with next js ,mongodb ,shadcn ui and resend to send emails.",
+    liveLink: "https://builditwebsite.vercel.app/",
+    githublink: "https://github.com/nikhilsahni7/Builditwebsite",
+    tags: ["Next js", "Mongo DB", "Shadcn UI ", " Framer motion", "TypeScript"],
+  },
+  {
     title: "Personal-Portfolio",
     description:
       "A personal portfolio website built with Next.js, Framer-motion and ShadCN UI to showcase my skills and projects.",
@@ -192,6 +221,21 @@ const Projects = () => {
                       GitHub
                     </a>
                   </Button>
+                  {project.backendLink && (
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full sm:w-auto"
+                    >
+                      <a
+                        href={project.backendLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Backend
+                      </a>
+                    </Button>
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>
