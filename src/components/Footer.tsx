@@ -35,7 +35,7 @@ const Footer = () => {
               className="text-black hover:bg-gray-200 text-sm sm:text-base"
             >
               <a
-                href="https://drive.google.com/file/d/1DwwPbC6Mz6HC8xkiKSOO3KGRm5f6w29o/view"
+                href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"
                 target="_blank"
                 rel="noopener noreferrer"
               >
