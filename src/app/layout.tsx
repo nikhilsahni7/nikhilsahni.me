@@ -16,9 +16,25 @@ const fontSans = FontSans({
 });
 
 export const metadata = {
-  title: "Personal Website",
+  title: "Personal Website of Nikhil Sahni",
   description:
-    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer and my journey as a software engineer",
+    "A website for my portfolio that displays my skills, projects, and about my work as a full stack developer,freelancer  and my journey as a software engineer",
+  keywords: [
+    "Nikhil Sahni",
+    "Full Stack Developer",
+    "Software Engineer",
+    "Freelancer",
+    "App Developer",
+    "Problem Solver",
+    "React",
+    "Next.js",
+    "Ai Developer",
+    "Nikhil Sahni Portfolio",
+    "Nikhil Sahni Website",
+    "Nikhil",
+  ],
+  image: "/public/banner.jpeg",
+  logo: "/public/logo.png",
 };
 
 export default function RootLayout({

@@ -34,13 +34,12 @@ const Header = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="https://avatars.githubusercontent.com/u/100983397?v=4"
+                src="https://pbs.twimg.com/profile_images/1730953408885280768/aYOtbZOL_400x400.jpg"
                 alt="Nikhil Sahni"
                 width={40}
                 height={40}
                 className="rounded-full border-2 border-black"
               />
-              <span className="text-xl font-bold text-black">Nikhil Sahni</span>
             </Link>
           </motion.div>
           <div className="hidden md:flex items-center space-x-1">
@@ -66,7 +65,7 @@ const Header = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button asChild className="bg-black text-white hover:bg-gray-800">
                 <a
-                  href="https://drive.google.com/file/d/1DwwPbC6Mz6HC8xkiKSOO3KGRm5f6w29o/view"
+                  href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -124,7 +123,7 @@ const Header = () => {
               className="w-full bg-black text-white hover:bg-gray-800"
             >
               <a
-                href="https://drive.google.com/file/d/1DwwPbC6Mz6HC8xkiKSOO3KGRm5f6w29o/view"
+                href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}

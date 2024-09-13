@@ -1,179 +1,183 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useAnimation,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
-import React, { useMemo, useState, useEffect } from "react";
+
+const socialLinks = [
+  { icon: FaGithub, url: "https://github.com/nikhilsahni7", color: "#333" },
+  {
+    icon: FaLinkedin,
+    url: "https://www.linkedin.com/in/nikhil-sahni-655518222",
+    color: "#0077B5",
+  },
+  { icon: FaTwitter, url: "https://x.com/Nikhilllsahni", color: "#1DA1F2" },
+  {
+    icon: FaInstagram,
+    url: "https://www.instagram.com/iam.nikhil7",
+    color: "#E1306C",
+  },
+];
 
 const Hero = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, -200]);
+  const [mounted, setMounted] = useState(false);
 
-  const socialLinks = [
-    { icon: FaGithub, url: "https://github.com/nikhilsahni7" },
-    {
-      icon: FaLinkedin,
-      url: "https://www.linkedin.com/in/nikhil-sahni-655518222?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-    },
-    {
-      icon: FaTwitter,
-      url: "https://x.com/Nikhilllsahni?t=GwfnmO3UaBbk5W5Fk2FjsQ&s=09",
-    },
-    {
-      icon: FaInstagram,
-      url: "https://www.instagram.com/iam.nikhil7?igsh=cTFyZDh0NXk0eGNs",
-    },
-  ];
-
-  const particles = useMemo(() => {
-    return [...Array(20)].map((_, i) => ({
-      key: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-    }));
-  }, []);
+  const controls = useAnimation();
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
+    setMounted(true);
+    controls.start({ opacity: 1, y: 0 });
+  }, [controls]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  const handleMouseMove = (event: any) => {
+    const { clientX, clientY } = event;
+    if (!containerRef.current) return;
+    const { left, top, width, height } = (
+      containerRef.current as HTMLElement
+    ).getBoundingClientRect();
+    const x = (clientX - left) / width;
+    const y = (clientY - top) / height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
 
-  const SkeletonLoader = () => (
-    <div className="space-y-4 w-full max-w-md mx-auto">
-      <div className="h-16 bg-gray-200 rounded-lg animate-pulse"></div>
-      <div className="h-8 bg-gray-200 rounded-lg w-3/4 mx-auto animate-pulse"></div>
-      <div className="flex justify-center space-x-4 mb-8">
-        {[...Array(4)].map((_, index) => (
-          <div
-            key={index}
-            className="w-8 h-8 bg-gray-200 rounded-full animate-pulse"
-          ></div>
-        ))}
-      </div>
-      <div className="flex justify-center space-x-4">
-        <div className="w-32 h-12 bg-gray-200 rounded-lg animate-pulse"></div>
-        <div className="w-32 h-12 bg-gray-200 rounded-lg animate-pulse"></div>
-      </div>
-    </div>
-  );
+  const rotateX = useTransform(mouseY, [0, 1], [10, -10]);
+  const rotateY = useTransform(mouseX, [0, 1], [-10, 10]);
+
+  if (!mounted) return null;
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-100 overflow-hidden relative">
-      <div className="absolute inset-0 z-0">
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.key}
-            className="absolute bg-gray-300 rounded-full"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-            }}
-            animate={{
-              x: [0, Math.random() * 10 - 5],
-              y: [0, Math.random() * 10 - 5],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
+    <section
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-accent to-background text-foreground perspective-1000"
+    >
+      <div className="absolute inset-0 opacity-50">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+')] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]"></div>
       </div>
 
-      {isLoading ? (
-        <SkeletonLoader />
-      ) : (
-        <motion.div style={{ y }} className="text-center relative z-10">
+      <div className="container mx-auto px-4 py-12 flex flex-col items-center justify-center min-h-screen relative z-10">
+        <motion.div style={{ rotateX, rotateY }} className="text-center mb-12">
           <motion.h1
-            className="text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-600"
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-6xl font-extrabold tracking-tight sm:text-7xl md:text-8xl mb-4"
           >
-            Nikhil Sahni
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-foreground to-primary">
+              Nikhil Sahni
+            </span>
           </motion.h1>
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+          <motion.h2
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-2xl font-semibold sm:text-3xl mb-8"
           >
-            <h2 className="text-3xl text-gray-700 mb-6">
-              <TypeAnimation
-                sequence={[
-                  "Full Stack Developer",
-                  1000,
-                  "Software Engineer",
-                  1000,
-                  "Web Enthusiast",
-                  1000,
-                  "Problem Solver",
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-              />
-            </h2>
-          </motion.div>
-          <motion.div
-            className="flex justify-center space-x-4 mb-8"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={index}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -5, scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <link.icon className="text-3xl text-gray-600 hover:text-black transition-colors" />
-              </motion.a>
-            ))}
-          </motion.div>
-          <motion.div
-            className="space-x-4"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <Button
-              size="lg"
-              asChild
-              variant="default"
-              className="bg-black text-white hover:bg-gray-800 transition-colors duration-300"
-            >
-              <a href="#contact">Get in Touch</a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="border-black text-black hover:bg-black hover:text-white transition-colors duration-300"
-            >
-              <a
-                href="https://personal-portfolio-blue-one.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Portfolio
-              </a>
-            </Button>
-          </motion.div>
+            <TypeAnimation
+              sequence={[
+                "Full Stack Developer",
+                1000,
+                "Software Engineer",
+                1000,
+                "Freelancer",
+                1000,
+                "App Developer",
+                1000,
+                "Problem Solver",
+                1000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+            />
+          </motion.h2>
         </motion.div>
-      )}
+
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          {socialLinks.map((link, index) => (
+            <motion.a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Card className="p-4 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 flex items-center justify-center">
+                <link.icon className="text-3xl" style={{ color: link.color }} />
+              </Card>
+            </motion.a>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="space-y-4 sm:space-y-0 sm:space-x-4 mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <Button
+            size="lg"
+            variant="default"
+            className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 transform hover:scale-105"
+          >
+            <a href="#contact">Get in Touch</a>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105"
+          >
+            <a
+              href="https://personal-portfolio-blue-one.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Portfolio
+            </a>
+          </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        ></motion.div>
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-30 mix-blend-soft-light">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <filter id="noiseFilter">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.6"
+                stitchTiles="stitch"
+              />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
+        </div>
+      </div>
     </section>
   );
 };
 
-export default React.memo(Hero);
+export default Hero;

@@ -30,6 +30,26 @@ const projects = [
     ],
   },
   {
+    title: "Vivah (IN PROGRESS)",
+    description:
+      "A matrimonial website where users can find their life partners with advance search and match their expectations  and supports premium feature  with more advance stuff ",
+    liveLink: "https://vivah-com.vercel.app/",
+    githubLink: "code is private",
+    tags: [
+      "Next.js",
+      "PostgreSQL",
+      "Prisma",
+      "TypeScript",
+      "NextAuth",
+      "Tailwind CSS",
+      "Node.js",
+      "Express Js",
+      "S3",
+      "Razorpay",
+      "Admin js",
+    ],
+  },
+  {
     title: "SurveyX(Backend right now)",
     description:
       "SurveyX is a full-stack survey form application that allows users to create surveys of any kind to grow their business/startups and view the responses and analytics and add teams and members to the survey.",
@@ -61,7 +81,24 @@ const projects = [
       "TypeScript",
       "NextAuth",
       "Tailwind CSS",
-      "Vercel",
+    ],
+  },
+  {
+    title: "Ed-Tech-Platform (IN PROGRESS)",
+    description:
+      "A full stack educational platform for students and teachers and business owners to connect and grow their business and learn new things",
+    liveLink: "https://probe-stemm.vercel.app/",
+    githubLink: "code is private",
+    tags: [
+      " React.js",
+      "PostgreSQL",
+      "Prisma",
+      "TypeScript",
+      "Shadcn UI",
+      "Tailwind CSS",
+      "Node.js",
+      "Express Js",
+      "React Router",
     ],
   },
   {
