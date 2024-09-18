@@ -34,7 +34,7 @@ const Header = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="https://pbs.twimg.com/profile_images/1730953408885280768/aYOtbZOL_400x400.jpg"
+                src="https://pbs.twimg.com/profile_images/1833828320426790912/qqpY5PrQ_400x400.jpg"
                 alt="Nikhil Sahni"
                 width={40}
                 height={40}

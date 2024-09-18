@@ -144,13 +144,7 @@ const Hero = () => {
             variant="outline"
             className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105"
           >
-            <a
-              href="https://personal-portfolio-blue-one.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Portfolio
-            </a>
+            <a href="#projects">View Projects</a>
           </Button>
         </motion.div>
 
