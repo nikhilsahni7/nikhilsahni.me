@@ -142,7 +142,7 @@ const projects = [
     title: "Build it",
     description:
       " A full stack website for construction companies to showcase their projects and services with next js ,mongodb ,shadcn ui and resend to send emails.",
-    liveLink: "https://builditwebsite.vercel.app/",
+    liveLink: "https://build-it.co.in/",
     githublink: "https://github.com/nikhilsahni7/Builditwebsite",
     tags: ["Next js", "Mongo DB", "Shadcn UI ", " Framer motion", "TypeScript"],
   },
