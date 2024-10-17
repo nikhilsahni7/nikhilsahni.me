@@ -121,7 +121,7 @@ const projects = [
     title: "Nexus-Chat",
     description:
       "Nexus Chat is a real-time chat application designed to connect, collaborate, and communicate seamlessly. This project leverages modern web technologies to provide a robust and user-friendly experience.",
-    liveLink: "https://nexus-chat-jade.vercel.app/chat",
+    liveLink: "https://nexus-chat-jade.vercel.app",
     githubLink: "https://github.com/nikhilsahni7/Nexus-Chat",
     backendLink: "https://github.com/nikhilsahni7/Nexus-Chat-Backend",
     tags: [
