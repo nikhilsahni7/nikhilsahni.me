@@ -31,15 +31,22 @@ const Header = () => {
     >
       <nav className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex justify-between items-center">
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center space-x-3"
+          >
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="https://pbs.twimg.com/profile_images/1833828320426790912/qqpY5PrQ_400x400.jpg"
                 alt="Nikhil Sahni"
-                width={40}
-                height={40}
+                width={45}
+                height={45}
                 className="rounded-full border-2 border-black"
               />
+              <span className="font-caveat text-2xl md:text-3xl font-bold tracking-wide">
+                Nikhil Sahni
+              </span>
             </Link>
           </motion.div>
           <div className="hidden md:flex items-center space-x-1">
@@ -53,7 +60,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   asChild
-                  className="relative group text-black"
+                  className="relative group text-black font-caveat text-xl"
                 >
                   <Link href={item.href}>
                     {item.name}
@@ -63,7 +70,10 @@ const Header = () => {
               </motion.div>
             ))}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild className="bg-black text-white hover:bg-gray-800">
+              <Button
+                asChild
+                className="bg-black text-white hover:bg-gray-800 font-caveat text-xl"
+              >
                 <a
                   href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"
                   target="_blank"
@@ -112,7 +122,7 @@ const Header = () => {
                 key={item.name}
                 variant="ghost"
                 asChild
-                className="w-full text-left text-black"
+                className="w-full text-left text-black font-caveat text-xl"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Link href={item.href}>{item.name}</Link>
@@ -120,7 +130,7 @@ const Header = () => {
             ))}
             <Button
               asChild
-              className="w-full bg-black text-white hover:bg-gray-800"
+              className="w-full bg-black text-white hover:bg-gray-800 font-caveat text-xl"
             >
               <a
                 href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"

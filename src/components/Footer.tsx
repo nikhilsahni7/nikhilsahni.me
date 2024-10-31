@@ -14,12 +14,12 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <motion.div
-            className="text-center sm:text-left mb-4 sm:mb-0"
+            className="text-center font-caveat text-2xl font-bold"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <p className="text-gray-600 text-sm sm:text-base">
+            <p className="text-gray-600 font-caveat text-2xl font-bold">
               &copy; {currentYear} Nikhil Sahni. All rights reserved.
             </p>
           </motion.div>
@@ -32,7 +32,7 @@ const Footer = () => {
             <Button
               variant="ghost"
               asChild
-              className="text-black hover:bg-gray-200 text-sm sm:text-base"
+              className="text-black hover:bg-gray-200  font-caveat text-2xl"
             >
               <a
                 href="https://drive.google.com/file/d/1QrRrbtfsCGJdW1pBER17U4EG5bKtfwhO/view"
@@ -45,7 +45,7 @@ const Footer = () => {
             <Button
               variant="ghost"
               asChild
-              className="text-black hover:bg-gray-200 text-sm sm:text-base"
+              className="text-black hover:bg-gray-200  font-caveat text-2xl"
             >
               <a href="#" target="_blank" rel="noopener noreferrer">
                 Privacy Policy
@@ -54,7 +54,7 @@ const Footer = () => {
             <Button
               variant="ghost"
               asChild
-              className="text-black hover:bg-gray-200 text-sm sm:text-base"
+              className="text-black hover:bg-gray-200  font-caveat text-2xl"
             >
               <a href="#" target="_blank" rel="noopener noreferrer">
                 Terms of Service
