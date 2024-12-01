@@ -148,7 +148,7 @@ const webProjects = [
     title: "Probe-Stemm",
     description:
       "A full stack educational platform for students and teachers and business owners to connect and grow their business and learn new things",
-    liveLink: "https://probestemm.vercel.app",
+    liveLink: "https://probestem.com",
     githubLink: "https://github.com/Vishal182573/probestemm",
     tags: [
       " React.js",
