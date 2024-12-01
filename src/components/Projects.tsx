@@ -23,6 +23,33 @@ import { Github, Globe, Smartphone, Code2, ExternalLink } from "lucide-react";
 
 const webProjects = [
   {
+    title: "Brevit",
+    description:
+      "My own startup where we are building a platform for creators/business owners and general users to manage their social media accounts with ai and generate content,post scheduling and analytics and manage different platfroms like insta,fb,twitter and linkedin",
+
+    liveLink: "https://brevit.vercel.app",
+    githubLink: "code is private",
+    tags: [
+      "Next.js",
+      "PostgreSQL",
+      "Prisma",
+      "Gemini/chat-gpt API",
+      "Nvidia API",
+      "TypeScript",
+      "NextAuth",
+      "Tailwind CSS",
+      "ShadcN UI",
+      "Linkedin oAuth",
+      "Twitter oAuth",
+      "Facebook oAuth",
+      "Instagram oAuth",
+      "Resend API",
+      "Cloudinary",
+      "Razorpay",
+    ],
+  },
+
+  {
     title: "Skill-Bridge",
     description:
       "Developed an online Platform for Clients and freelancers to connect with each other and work on projects and grow their business",
@@ -39,6 +66,30 @@ const webProjects = [
       "Node.js",
     ],
   },
+
+  {
+    title: "NutriwiseAI",
+    description:
+      " Our hackathon winning project where we built a platform for users to get their diet plans and workout plans and track their progress and get analytics and get recipe recommendations and get their bmi and bmr and get their calorie intake etc",
+
+    liveLink: "https://nutriwise.vercel.app/",
+    githubLink: "https://github.com/nikhilsahni7/Nutriwise-AI",
+    tags: [
+      "Next.js",
+      "PostgreSQL",
+      "Prisma",
+      "Recipe DB API",
+      "Google Vision Gemini API",
+      "Flavour DB API",
+      "TypeScript",
+      "NextAuth",
+      "Tailwind CSS",
+      "Shadcn UI",
+      "Google Maps API",
+      "Resend API",
+    ],
+  },
+
   {
     title: "Vivah",
     description:
