@@ -36,6 +36,7 @@ const DefaultProjectImage = ({ title }: { title: string }) => {
 // Project image component with error handling
 const ProjectImage = ({ title }: { title: string }) => {
   const [error, setError] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   if (error) {
     return <DefaultProjectImage title={title} />;
@@ -43,14 +44,17 @@ const ProjectImage = ({ title }: { title: string }) => {
 
   return (
     <div className="relative h-full">
+      {!loaded && <DefaultProjectImage title={title} />}
       <Image
         src={`/projects/${title.toLowerCase().replace(/\s+/g, "-")}.png`}
         alt={title}
         width={500}
         height={300}
-        className="rounded-t-xl object-cover w-full h-full transition-all duration-500 hover:scale-110 filter saturate-[1.1]"
+        className={`rounded-t-xl object-cover w-full h-full transition-all duration-500 hover:scale-110 filter saturate-[1.1] ${loaded ? "opacity-100" : "opacity-0"}`}
         onError={() => setError(true)}
-        priority
+        onLoad={() => setLoaded(true)}
+        loading="eager"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-90" />
     </div>
@@ -276,7 +280,10 @@ const Projects = () => {
             <TabsContent value="web" className="mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {webProjects.map((project, index) => (
-                  <ProjectCard key={index} project={project} />
+                  <ProjectCard
+                    key={`web-${project.title}-${index}`}
+                    project={project}
+                  />
                 ))}
               </div>
             </TabsContent>
@@ -284,7 +291,11 @@ const Projects = () => {
             <TabsContent value="app" className="mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {appProjects.map((project, index) => (
-                  <ProjectCard key={index} project={project} isApp={true} />
+                  <ProjectCard
+                    key={`app-${project.title}-${index}`}
+                    project={project}
+                    isApp={true}
+                  />
                 ))}
               </div>
             </TabsContent>

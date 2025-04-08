@@ -225,26 +225,34 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.8 }}
-        className="absolute bottom-6 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10"
       >
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-sm text-foreground font-medium">
-            Scroll Down
-          </span>
-          <div className="w-6 h-10 rounded-full border-2 border-primary/60 flex items-start justify-center p-1 shadow-glow-sm">
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.5,
-                ease: "easeInOut",
-              }}
-              className="w-1.5 h-1.5 rounded-full bg-primary"
-            />
+        <a
+          href="#about"
+          className="block cursor-pointer"
+          style={{
+            WebkitTapHighlightColor: "transparent",
+          }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-sm text-foreground/90 font-medium bg-background/60 px-3 py-1 rounded-full backdrop-blur-sm">
+              Scroll Down
+            </span>
+            <div className="w-6 h-10 rounded-full border-2 border-primary/60 flex items-start justify-center p-1 shadow-glow-sm bg-background/30 backdrop-blur-sm">
+              <motion.div
+                animate={{
+                  y: [0, 10, 0],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1.5,
+                  ease: "easeInOut",
+                }}
+                className="w-1.5 h-1.5 rounded-full bg-primary"
+              />
+            </div>
           </div>
-        </div>
+        </a>
       </motion.div>
     </section>
   );
