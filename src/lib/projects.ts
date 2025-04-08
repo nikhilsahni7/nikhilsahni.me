@@ -1,5 +1,25 @@
 export const webProjects = [
   {
+    title: "MediChain",
+    description:
+      "A comprehensive solution for hospitals to share and request medicines in real-time. Includes an AI-powered medicine label scanner, hospital mapping, secure payment system, and blockchain-based audit trail for orders and inventory logs.",
+    liveLink: "https://medichain01.vercel.app",
+    githubLink: "https://github.com/nikhilsahni7/MediChain",
+    tags: [
+      "Next.js",
+      "Flutter",
+      "Solidity",
+      "Blockchain",
+      "AI",
+      "Google Maps API",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Razorpay",
+      "Sepolia Testnet",
+    ],
+  },
+  {
     title: "Brevit",
     description:
       "My own startup where we are building a platform for creators/business owners and general users to manage their social media accounts with ai and generate content,post scheduling and analytics and manage different platfroms like insta,fb,twitter and linkedin",
@@ -180,7 +200,7 @@ export const webProjects = [
     ],
   },
   {
-    title: "Social-Org-Map Website",
+    title: "DidMyBit",
     description:
       "A full-stack platform where social organizations can showcase initiatives, raise funds, and build communities using an interactive Google Maps interface for enhanced user experience and advanced search.",
 
@@ -255,6 +275,28 @@ export const webProjects = [
 ];
 
 export const appProjects = [
+  {
+    title: "MediChain",
+    description:
+      "A Flutter-based mobile app that helps hospitals track medicine stock, scan medicine labels with AI, view nearby hospitals on a map, and request medicines with secure payments. Includes a blockchain-based audit trail for complete transparency.",
+    playStoreLink: "https://github.com/nikhilsahni7/MediChain",
+    appStoreLink: "https://github.com/nikhilsahni7/MediChain",
+    githubLink: "https://github.com/nikhilsahni7/MediChain",
+    tags: [
+      "Flutter",
+      "Dart",
+      "Solidity",
+      "Blockchain",
+      "AI",
+      "Google Maps API",
+      "Firebase",
+      "Push Notifications",
+      "Razorpay",
+      "Camera Integration",
+      "Node.js",
+    ],
+    type: "Cross Platform",
+  },
   {
     title: "TaxiSure App",
     description:

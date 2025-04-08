@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,11 +10,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Github, Globe, Smartphone, Code2 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { motion, useInView } from "framer-motion";
+import { Code2, ExternalLink, Github, Globe, Smartphone } from "lucide-react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 
 import { appProjects, webProjects } from "@/lib/projects";
+
+// DefaultProjectImage component for fallback
+const DefaultProjectImage = ({ title }: { title: string }) => {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/20 rounded-t-xl">
+      <div className="text-center p-4">
+        <Globe className="w-12 h-12 mx-auto mb-2 text-primary" />
+        <h3 className="text-lg font-semibold text-foreground truncate max-w-xs">
+          {title}
+        </h3>
+      </div>
+      <div className="spotlight opacity-50"></div>
+    </div>
+  );
+};
+
+// Project image component with error handling
+const ProjectImage = ({ title }: { title: string }) => {
+  const [error, setError] = useState(false);
+
+  if (error) {
+    return <DefaultProjectImage title={title} />;
+  }
+
+  return (
+    <div className="relative h-full">
+      <Image
+        src={`/projects/${title.toLowerCase().replace(/\s+/g, "-")}.png`}
+        alt={title}
+        width={500}
+        height={300}
+        className="rounded-t-xl object-cover w-full h-full transition-all duration-500 hover:scale-110 filter saturate-[1.1]"
+        onError={() => setError(true)}
+        priority
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-90" />
+    </div>
+  );
+};
 
 interface Project {
   title: string;
@@ -37,103 +76,124 @@ const ProjectCard = ({
   project: Project;
   isApp?: boolean;
 }) => {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, amount: 0.3 });
+
+  const variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8 }}
-      whileHover={{ y: -5 }}
+      ref={cardRef}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+      whileHover={{ y: -8, transition: { duration: 0.2 } }}
+      className="h-full"
     >
-      <Card className="bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300">
-        <div className="relative w-full h-48 overflow-hidden">
+      <Card className="h-full flex flex-col bg-background/80 backdrop-blur-sm border border-primary/20 rounded-xl shadow-md hover:shadow-glow-sm transition-all duration-300">
+        <div className="relative w-full h-52 overflow-hidden rounded-t-xl">
           {isApp ? (
-            <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent-foreground to-primary flex items-center justify-center">
-              <Smartphone className="w-16 h-16 text-white" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/80 via-primary/60 to-secondary/80 flex items-center justify-center">
+              <Smartphone className="w-16 h-16 text-white drop-shadow-lg" />
+              <div className="absolute bottom-0 right-0 p-3 bg-background/50 backdrop-blur-md rounded-tl-lg">
+                <span className="text-xs font-semibold text-white">
+                  {project.type || "Mobile App"}
+                </span>
+              </div>
+              <div className="spotlight opacity-75"></div>
             </div>
           ) : (
-            <div className="relative h-full">
-              <Image
-                src={`https://api.microlink.io/?url=${encodeURIComponent(
-                  project.liveLink || ""
-                )}&screenshot=true&meta=false&embed=screenshot.url`}
-                alt={project.title}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-lg transition-transform duration-300 hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            </div>
+            <ProjectImage title={project.title} />
           )}
         </div>
-        <CardHeader>
-          <CardTitle className="font-caveat text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-foreground to-primary">
+        <CardHeader className="pb-2">
+          <CardTitle className="font-outfit text-2xl font-bold text-primary tracking-tight">
             {project.title}
           </CardTitle>
-          <CardDescription className="font-caveat text-lg text-muted-foreground mt-2">
+          <CardDescription className="font-inter text-base text-foreground mt-2 line-clamp-3">
             {project.description}
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="py-2 flex-grow">
           <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag, tagIndex) => (
+            {project.tags.slice(0, 6).map((tag, tagIndex) => (
               <Badge
                 key={tagIndex}
                 variant="secondary"
-                className="font-caveat text-base bg-card/50 backdrop-blur-sm hover:bg-card/80"
+                className="text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-200"
               >
                 {tag}
               </Badge>
             ))}
+            {project.tags.length > 6 && (
+              <Badge variant="outline" className="text-xs text-foreground">
+                +{project.tags.length - 6} more
+              </Badge>
+            )}
           </div>
         </CardContent>
-        <CardFooter className="flex flex-wrap gap-2">
-          {!isApp && (
-            <Button
-              size="sm"
-              className="font-caveat text-lg bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 transform hover:scale-105"
-            >
+        <CardFooter className="flex flex-wrap gap-2 pt-2">
+          {!isApp &&
+            project.liveLink &&
+            project.liveLink !== "code is private" && (
               <a
                 href={project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2"
+                className="contents"
               >
-                <Globe className="w-4 h-4" />
-                Live Demo
+                <Button
+                  size="sm"
+                  className="bg-primary hover:bg-primary/90 text-background flex items-center gap-2 shadow-md"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View Live
+                </Button>
               </a>
-            </Button>
-          )}
-          <Button
-            size="sm"
-            variant="outline"
-            className="font-caveat text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105"
-          >
+            )}
+          {project.githubLink && project.githubLink !== "code is private" && (
             <a
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2"
+              className="contents"
             >
-              <Github className="w-4 h-4" />
-              GitHub
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10 flex items-center gap-2 shadow-md"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
+              </Button>
             </a>
-          </Button>
+          )}
           {project.backendLink && (
-            <Button
-              size="sm"
-              variant="outline"
-              className="font-caveat text-lg border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-105"
+            <a
+              href={project.backendLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contents"
             >
-              <a
-                href={project.backendLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/10 flex items-center gap-2 shadow-md"
               >
                 <Code2 className="w-4 h-4" />
                 Backend
-              </a>
-            </Button>
+              </Button>
+            </a>
           )}
         </CardFooter>
       </Card>
@@ -142,94 +202,78 @@ const ProjectCard = ({
 };
 
 const Projects = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateX = useTransform(mouseY, [0, 1], [10, -10]);
-  const rotateY = useTransform(mouseX, [0, 1], [-10, 10]);
-  const [isMobile, setIsMobile] = React.useState(false);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const handleMouseMove = (event: React.MouseEvent) => {
-    if (isMobile) return;
-    const { clientX, clientY } = event;
-    const { left, top, width, height } =
-      event.currentTarget.getBoundingClientRect();
-    const x = (clientX - left) / width;
-    const y = (clientY - top) / height;
-    mouseX.set(x);
-    mouseY.set(y);
+  const titleVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
   };
 
   return (
     <section
       id="projects"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-accent to-background text-foreground perspective-1000"
+      ref={sectionRef}
+      className="section-padding container-custom"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-50">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNjY2MiPjwvcmVjdD4KPC9zdmc+')] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]"></div>
-      </div>
-
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          style={isMobile ? {} : { rotateX, rotateY }}
-          className="text-center mb-12"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+          className="space-y-12"
         >
-          <motion.h1
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-caveat text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-wide mb-4"
+          <motion.div
+            variants={titleVariants}
+            className="text-center relative z-10"
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent-foreground to-primary">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tighter text-primary drop-shadow-sm">
               My Projects
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="font-caveat text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
-          >
-            Explore my portfolio of web and mobile applications, showcasing my
-            expertise in full-stack development
-          </motion.p>
-        </motion.div>
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto text-foreground">
+              Explore a collection of my latest projects, from web applications
+              to mobile development
+            </p>
+            <div className="absolute -z-10 w-full h-full max-w-xs mx-auto blur-[80px] bg-primary/10 rounded-full top-0 inset-0"></div>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
           <Tabs defaultValue="web" className="w-full">
-            <TabsList className="flex justify-center mb-8 bg-background/50 backdrop-blur-sm">
+            <TabsList className="flex justify-center mb-8 bg-background/70 backdrop-blur-md border border-border/50 rounded-lg p-1 max-w-md mx-auto">
               <TabsTrigger
                 value="web"
-                className="font-caveat text-lg flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className="font-inter text-base flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-background transition-all duration-200"
               >
                 <Globe className="w-4 h-4" />
                 Web Projects
               </TabsTrigger>
               <TabsTrigger
                 value="app"
-                className="font-caveat text-lg flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                className="font-inter text-base flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-background transition-all duration-200"
               >
                 <Smartphone className="w-4 h-4" />
                 App Projects
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="web">
+            <TabsContent value="web" className="mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {webProjects.map((project, index) => (
                   <ProjectCard key={index} project={project} />
@@ -237,7 +281,7 @@ const Projects = () => {
               </div>
             </TabsContent>
 
-            <TabsContent value="app">
+            <TabsContent value="app" className="mt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {appProjects.map((project, index) => (
                   <ProjectCard key={index} project={project} isApp={true} />
@@ -246,22 +290,6 @@ const Projects = () => {
             </TabsContent>
           </Tabs>
         </motion.div>
-      </div>
-
-      {/* Noise Overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-30 mix-blend-soft-light">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <filter id="noiseFilter">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.6"
-                stitchTiles="stitch"
-              />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-          </svg>
-        </div>
       </div>
     </section>
   );

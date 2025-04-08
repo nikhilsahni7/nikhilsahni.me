@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,25 +6,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 89%;
-    --input: 0 0% 89%;
-    --ring: 0 0% 0%;
+    --background: 187 89% 4%;
+    --foreground: 188 82% 94%;
+    --card: 187 89% 4%;
+    --card-foreground: 188 82% 94%;
+    --popover: 187 89% 4%;
+    --popover-foreground: 188 82% 94%;
+    --primary: 190 83% 72%;
+    --primary-foreground: 187 89% 4%;
+    --secondary: 252 82% 30%;
+    --secondary-foreground: 188 82% 94%;
+    --accent: 277 84% 54%;
+    --accent-foreground: 188 82% 94%;
+    --muted: 187 30% 10%;
+    --muted-foreground: 188 40% 80%;
+    --border: 190 30% 15%;
+    --input: 190 30% 15%;
+    --ring: 190 83% 72%;
+    --radius: 0.85rem;
   }
 }
 
@@ -32,14 +31,87 @@
   * {
     @apply border-border;
   }
+
+  html {
+    font-feature-settings: "kern", "liga", "calt";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased tracking-wide;
+    background-image:
+      radial-gradient(
+        circle at 25% 25%,
+        rgba(125, 218, 242, 0.12) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        rgba(132, 43, 234, 0.12) 0%,
+        transparent 50%
+      ),
+      url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjAzIiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=");
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-bold tracking-tight;
+    text-shadow: 0 0 25px rgba(125, 218, 242, 0.15);
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl lg:text-6xl leading-tighter;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl lg:text-5xl leading-tight;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl leading-tight;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg sm:text-xl font-semibold;
+  }
+
+  h6 {
+    @apply text-base sm:text-lg font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed mb-4 last:mb-0 text-foreground/90;
+  }
+
+  b,
+  strong {
+    @apply text-primary font-semibold;
+  }
+
+  a {
+    @apply transition-colors duration-200 text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/20 rounded-md;
   }
 }
 
 :root {
-  --font-sans: "Inter", sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 body {
@@ -48,4 +120,284 @@ body {
 
 .code-font {
   font-family: var(--font-mono);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.4);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.7);
+}
+
+/* Glass Effect */
+.glass-effect {
+  @apply bg-background/60 backdrop-blur-md border border-primary/15 shadow-soft-xl;
+}
+
+.glass-card {
+  @apply bg-background/70 backdrop-blur-md border border-border/80 rounded-xl shadow-soft-xl transition-all duration-300 hover:shadow-glow-sm hover:border-primary/30;
+}
+
+/* Text Gradients */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+  text-shadow: none;
+}
+
+/* Tech Gradient */
+.tech-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-primary to-accent;
+  text-shadow: none;
+}
+
+/* Hover Effects */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-glow-sm;
+}
+
+/* Card Styles */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-glow-md hover:border-primary/40 hover:-translate-y-1;
+}
+
+/* Button Styles */
+.button-glow {
+  @apply transition-all duration-300 hover:shadow-glow-sm;
+}
+
+.primary-button {
+  @apply px-4 py-2 rounded-lg bg-primary text-background hover:bg-primary/80 transition-all duration-200 font-medium shadow-button hover:shadow-glow-sm focus:outline-none focus:ring-2 focus:ring-primary/50 active:scale-[0.98];
+}
+
+.secondary-button {
+  @apply px-4 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-200 font-medium shadow-button hover:shadow-accent-glow focus:outline-none focus:ring-2 focus:ring-secondary/50 active:scale-[0.98];
+}
+
+.outline-button {
+  @apply px-4 py-2 rounded-lg bg-transparent border-2 border-primary text-primary hover:bg-primary/10 transition-all duration-200 font-medium shadow-button hover:shadow-glow-sm focus:outline-none focus:ring-2 focus:ring-primary/50 active:scale-[0.98];
+}
+
+/* Add active states for buttons */
+.bg-primary:active,
+button.bg-primary:active,
+a.bg-primary:active,
+[class*="bg-primary"]:active {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--background)) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+button[variant="outline"]:active,
+.border-primary:active {
+  background-color: hsl(var(--primary) / 0.05) !important;
+  color: hsl(var(--primary)) !important;
+  border-color: hsl(var(--primary) / 0.8) !important;
+}
+
+/* Link Styles */
+.link-underline {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
+}
+
+/* Title Styles */
+.title-large {
+  @apply font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tighter mb-4 leading-tighter;
+  letter-spacing: -0.025em;
+}
+
+.title-medium {
+  @apply font-sans text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight;
+  letter-spacing: -0.015em;
+}
+
+.title-small {
+  @apply font-sans text-xl sm:text-2xl font-semibold tracking-tight;
+}
+
+/* Section Spacing */
+.section-padding {
+  @apply py-12 sm:py-16 md:py-20 lg:py-24;
+}
+
+/* Focus Styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-primary/50 ring-offset-1 ring-offset-transparent;
+}
+
+/* Text highlight */
+::selection {
+  @apply bg-primary/20 text-foreground;
+}
+
+/* Animation Utilities */
+.shimmer {
+  @apply animate-shimmer bg-shimmer bg-[length:200%_100%] text-transparent;
+}
+
+.spotlight {
+  @apply absolute -z-10 h-56 w-56 rounded-full bg-primary/20 blur-[100px] animate-spotlight;
+}
+
+/* Layout Helpers */
+.container-custom {
+  @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Card Layouts */
+.cards-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* Image Styling */
+.image-hover {
+  @apply transition-all duration-300 hover:brightness-110 hover:saturate-150;
+}
+
+/* Form Elements */
+.input-primary {
+  @apply w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200;
+}
+
+.textarea-primary {
+  @apply w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-200 min-h-32 resize-y;
+}
+
+/* Tags and Pills */
+.tag {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-muted text-foreground;
+}
+
+.tag-primary {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-primary/20 text-primary;
+}
+
+.tag-secondary {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-secondary/20 text-secondary-foreground;
+}
+
+.tag-accent {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-accent/20 text-accent-foreground;
+}
+
+/* Responsive Helpers */
+.hide-on-mobile {
+  @apply hidden md:block;
+}
+
+.show-on-mobile {
+  @apply block md:hidden;
+}
+
+/* List Styling */
+ul.styled-list {
+  @apply space-y-2 my-4;
+}
+
+ul.styled-list li {
+  @apply relative pl-6 before:absolute before:left-0 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-primary;
+}
+
+/* Dividers */
+.divider {
+  @apply h-px w-full my-8 bg-border;
+}
+
+.divider-gradient {
+  @apply h-px w-full my-8 bg-gradient-to-r from-transparent via-border to-transparent;
+}
+
+/* Code Blocks */
+.code-block {
+  @apply font-mono text-sm bg-muted p-4 rounded-lg overflow-x-auto;
+}
+
+@layer components {
+  .shadow-button {
+    box-shadow:
+      0 4px 14px rgba(120, 78, 210, 0.25),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .shadow-button:hover {
+    box-shadow:
+      0 6px 20px rgba(120, 78, 210, 0.35),
+      0 3px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .shadow-glow-sm {
+    box-shadow:
+      0 0 15px rgba(120, 78, 210, 0.15),
+      0 0 5px rgba(120, 78, 210, 0.1);
+  }
+
+  .shadow-glow-md {
+    box-shadow:
+      0 0 25px rgba(120, 78, 210, 0.25),
+      0 0 8px rgba(120, 78, 210, 0.15);
+  }
+}
+
+/* Grain overlay */
+.grain {
+  background-image: url("/grain.png");
+  background-repeat: repeat;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  opacity: 0.03;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Override for buttons to ensure text remains visible on tap/active states */
+a[href]:active,
+button:active {
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
+/* Resume button specific override */
+a[href*="drive.google.com"]:active,
+a[href*="drive.google.com"]:focus {
+  color: hsl(var(--background)) !important;
+  opacity: 1 !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Make links more visible during interaction */
+a:active,
+a:focus {
+  opacity: 1 !important;
+}
+
+@media (hover: none) {
+  /* Mobile specific active state fixes */
+  .bg-primary > span,
+  .bg-primary > a,
+  a.bg-primary,
+  button.bg-primary,
+  .bg-primary:active,
+  .bg-primary:focus {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  .text-background:active,
+  .text-background:focus {
+    color: hsl(var(--background)) !important;
+  }
 }
