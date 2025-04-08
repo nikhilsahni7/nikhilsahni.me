@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Button } from "@/components/ui/button";
 import { motion, useInView } from "framer-motion";
 import { Anchor, ExternalLink, Github, Heart, Mail } from "lucide-react";
